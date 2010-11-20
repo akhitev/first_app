@@ -83,6 +83,7 @@
     <orderEntry type="library" scope="PROVIDED" name="[gem] rspec-mocks (v2.1.0, /home/alex/.rvm/gems/ruby-1.9.2-p0/gems/rspec-mocks-2.1.0)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] nokogiri (v1.4.3.1, /home/alex/.rvm/gems/ruby-1.9.2-p0/gems/nokogiri-1.4.3.1)" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="[gem] rspec-core (v2.1.0, /home/alex/.rvm/gems/ruby-1.9.2-p0/gems/rspec-core-2.1.0)" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="[gem] webrat (v0.7.1, /home/alex/.rvm/gems/ruby-1.9.2-p0/gems/webrat-0.7.1)" level="application" />
   </component>
 </module>
 

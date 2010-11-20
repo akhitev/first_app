@@ -19,5 +19,5 @@ end
 # and rake tasks are available in development mode:
  group :test do
    gem 'rspec'
-   gem 'webrat'
+   gem 'webrat', '0.7.1'   
  end

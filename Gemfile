@@ -8,10 +8,11 @@ gem 'rails', '3.0.1'
 
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'gravatar_image_tag'
 
 group :development do
   gem 'rspec-rails'
-   gem 'annotate-models'
+  gem 'annotate-models'
 end
 
 
@@ -20,5 +21,6 @@ end
 # and rake tasks are available in development mode:
  group :test do
    gem 'rspec'
-   gem 'webrat', '0.7.1'   
+   gem 'webrat', '0.7.1'
+   gem 'factory_girl_rails'
  end

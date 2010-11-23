@@ -31,8 +31,7 @@ class User < ActiveRecord::Base
 
   def self.authenticate(email, password)
     user = where(" email = ?",email).first
-    return nil if user.nil?
-    return user if user.has_password?(password)
+    user && user.has_password?(password) ? user : nil
   end
 
 

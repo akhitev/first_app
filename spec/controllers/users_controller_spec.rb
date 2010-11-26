@@ -285,10 +285,15 @@ describe UsersController do
       end
     end
     describe "for non admin users" do
-      it "should not show delete link" do
+      it "should deny access to destroy" do
         test_sign_in(@user, controller)
         delete :destroy, :id => @user
         response.should redirect_to(root_path)
+      end
+
+      it "should not show delete links" do
+        get :index
+        response.should_not have_selector("a", :content => "delete")
       end
     end
 
@@ -297,6 +302,11 @@ describe UsersController do
       before(:each) do
         admin = Factory(:user, :email => "admin@example.com", :admin => true)
         test_sign_in(admin, controller)
+      end
+
+      it "should not show delete links" do
+        get :index
+        response.should have_selector("a", :content => "delete")
       end
 
       it "should destroy the user" do

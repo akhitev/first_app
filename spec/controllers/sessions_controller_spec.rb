@@ -16,6 +16,7 @@ describe SessionsController do
     end
   end
 
+  
   describe "POST create" do
 
     describe "invalid signin" do
@@ -77,7 +78,7 @@ describe SessionsController do
   describe "test_sign_in method" do
     it "should return a user object, not an array" do
       user = Factory(:user)
-      test_sign_in(user,controller).should be_a(User)
+      test_sign_in(user).should be_a(User)
     end
   end
 

@@ -44,6 +44,14 @@ describe UsersController do
       response.should have_selector("h1>img", :class => "gravatar")
     end
 
+    it "should show the user's microposts" do
+      mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
+      mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
+      get :show, :id => @user
+      response.should have_selector("span.content", :content => mp1.content)
+      response.should have_selector("span.content", :content => mp2.content)
+    end
+
   end
 
   describe "POST 'create'" do
@@ -105,7 +113,7 @@ describe UsersController do
 
     before(:each) do
       @user = Factory(:user)
-      test_sign_in(@user, controller)
+      test_sign_in(@user)
     end
 
     it "should be successful" do
@@ -130,7 +138,7 @@ describe UsersController do
 
     before(:each) do
       @user = Factory(:user)
-      test_sign_in(@user, controller)
+      test_sign_in(@user)
     end
 
 
@@ -201,7 +209,7 @@ describe UsersController do
 
       before(:each) do
         wrong_user = Factory(:user, :email => "user@example.net")
-        test_sign_in(wrong_user, controller)
+        test_sign_in(wrong_user)
       end
 
       it "should require matching users for 'edit'" do
@@ -233,7 +241,7 @@ describe UsersController do
         @user  = Factory(:user)
         second = Factory(:user, :email => "another@example.com")
         third  = Factory(:user, :email => "another@example.net")
-        test_sign_in(@user, controller)
+        test_sign_in(@user)
         @users = [@user, second, third]
         30.times do
           @users << Factory(:user, :email => Factory.next(:email))
@@ -286,7 +294,7 @@ describe UsersController do
     end
     describe "for non admin users" do
       it "should deny access to destroy" do
-        test_sign_in(@user, controller)
+        test_sign_in(@user)
         delete :destroy, :id => @user
         response.should redirect_to(root_path)
       end
@@ -301,7 +309,7 @@ describe UsersController do
 
       before(:each) do
         admin = Factory(:user, :email => "admin@example.com", :admin => true)
-        test_sign_in(admin, controller)
+        test_sign_in(admin)
       end
 
       it "should not show delete links" do

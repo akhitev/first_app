@@ -25,9 +25,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  def test_sign_in(user, controller)
+  def test_sign_in(user)
     controller.sign_in(user)
-    #controller.stub(:logged_in?).and_return(true)
   end
 
   def integration_sign_in(user)
@@ -36,24 +35,5 @@ RSpec.configure do |config|
     fill_in :password, :with => user.password
     click_button
   end
-
-# TODO fixme this should be in some common place 
-#  describe "for signed-in users" do
-#
-#      it "should require matching users for 'edit'" do
-#        wrong_user = Factory(:user)
-#        wrong_user.email = "user@example.net"
-#        test_sign_in(wrong_user, controller)
-#        get :edit, :id => @user
-#        response.should redirect_to(root_path)
-#      end
-#
-#      it "should require matching users for 'update'" do
-#        put :update, :id => @user, :user => {}
-#        response.should redirect_to(root_path)
-#      end
-#    end
-  
-
 
 end

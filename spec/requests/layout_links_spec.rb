@@ -53,7 +53,8 @@ describe "LayoutLinks" do
   describe "when signed in" do
 
     before(:each) do      
-      integration_sign_in(Factory(:user))
+      @user = Factory(:user)
+      integration_sign_in(@user)
     end
 
     it "should have a signout link" do
@@ -62,7 +63,11 @@ describe "LayoutLinks" do
                                          :content => "Sign out")
     end
 
-    it "should have a profile link"
-      
+    it "should have a profile link" do
+     visit root_path
+     click_link "Profile"
+     response.should have_selector('title', :content => @user.name)
     end
-end
+  end
+  
+  end

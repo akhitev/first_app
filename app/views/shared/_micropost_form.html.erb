@@ -1,8 +1,11 @@
 <%= form_for @micropost do |f| %>
   <%= render 'shared/error_messages', :object => f.object %>
+  <%= javascript_include_tag 'symbol_counter' %>
   <div class="field">
-    <%= f.text_area :content %>
-  </div>
+    <%= f.text_area :content, :maxlength => '140' %>
+  </div >
+    <div ><span id="symbolsCnt">140</span><span> symbols left</span>
+    </div>
   <div class="actions">
     <%= f.submit "Submit" %>
   </div>

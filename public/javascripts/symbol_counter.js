@@ -12,5 +12,5 @@ function updateCnt(event,textarea) {
         textarea.val(textarea.val().substr(0, maxlength));
 //        event.preventDefault();
     }
-    $('#symbolsCnt').text(maxlength - messageLength)
+    $('#symbolsCnt').text(maxlength - textarea.val().length)
 }

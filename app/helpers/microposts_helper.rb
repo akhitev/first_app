@@ -1,5 +1,5 @@
 module MicropostsHelper
-    def wrap(content)
+    def wrap(content)      
     raw(content.split.map{ |s| wrap_long_string(s) }.join(' '))
   end
 

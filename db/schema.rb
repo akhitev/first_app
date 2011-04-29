@@ -10,7 +10,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101128001130) do
+ActiveRecord::Schema.define(:version => 20110429091432) do
+
+  create_table "appreciations", :force => true do |t|
+    t.integer  "liker_id"
+    t.integer  "liked_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "appreciations", ["liked_id"], :name => "index_appreciations_on_liked_id"
+  add_index "appreciations", ["liker_id"], :name => "index_appreciations_on_liker_id"
 
   create_table "microposts", :force => true do |t|
     t.string   "content"

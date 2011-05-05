@@ -5,6 +5,9 @@ class Micropost < ActiveRecord::Base
 
   validates :content, :presence => true, :length => { :maximum => 140 }
   validates :user_id, :presence => true
+  
+  has_many :appreciations, :foreign_key => :liked_id, :dependent => :destroy
+  has_many :likers, :through => :appreciations, :source => :liker
 
   default_scope :order => 'microposts.created_at DESC'
 

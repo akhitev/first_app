@@ -6,7 +6,6 @@ module MicropostsHelper
   private
 
     def wrap_long_string(text, max_width = 30)
-      puts 'wrap_long_string' + text
       zero_width_space = "&#8203;"
       regex = /.{1,#{max_width}}/
       (text.length < max_width) ? text :

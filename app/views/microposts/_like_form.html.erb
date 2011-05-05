@@ -1,0 +1,11 @@
+<div class="like_form <%= micropost.id %>">
+  <div class="button_wrapper">
+    <% if current_user.liked?(micropost) %>
+        <%= render :partial => 'microposts/unlike', :locals => {:micropost => micropost} %>
+    <% else %>
+        <%= render :partial =>'microposts/like', :locals => {:micropost => micropost} %>
+    <% end %>
+  </div>
+  <div class="likes"><%= micropost.likers.count %> likes</div>
+</div>
+

@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :followers, :through => :reverse_relationships, :source => :follower
 
   has_many :appreciations, :foreign_key => :liker_id, :dependent => :destroy
-  has_many :liked, :through => :appreciations, :source => :liked_id
+  has_many :liked, :through => :appreciations, :source => :liked
 
 
 
@@ -62,12 +62,23 @@ class User < ActiveRecord::Base
   def following?(followed)
     relationships.find_by_followed_id(followed)
   end
-  
+
   def follow!( followed)
     relationships.create(:followed_id => followed.id)
   end
   def unfollow!( followed)
     relationships.find_by_followed_id(followed).destroy
+  end
+
+  def like!(post)
+    appreciations.create(:liked_id => post.id)
+  end
+  def unlike!(post)
+    appreciations.find_by_liked_id(post).destroy
+  end
+
+  def liked?(post)
+    !appreciations.find_by_liked_id(post.id).nil?
   end
 
 

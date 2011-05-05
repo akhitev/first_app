@@ -14,7 +14,7 @@ describe Appreciation do
     @appreciation.save!
   end
 
-  describe "follow methods" do
+  describe "liked methods" do
 
     before(:each) do
       @appreciation.save
@@ -35,6 +35,18 @@ describe Appreciation do
     it "should have the right liker user" do
       @appreciation.liker.should == @liker
     end
+
+#   outer specs
+    it "user should repond to liked? " do
+      @liker.liked?(@liked).should be true
+    end
+
+    it "micropost should repond to likers " do
+      @liked.likers.should have(1).items
+      @liked.likers[0].should == @liker
+    end
+
+
 
     describe "validations" do
 
@@ -58,7 +70,6 @@ describe Appreciation do
       it "should allow to like others posts" do
         @appreciation.should be_valid
       end
-
     end
   end
 

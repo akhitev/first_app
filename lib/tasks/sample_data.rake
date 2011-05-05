@@ -13,6 +13,7 @@ namespace :db do
     make_users
     make_microposts
     make_relationships
+    make_appreciations
   end
   end
 
@@ -44,3 +45,13 @@ def make_microposts
     followers.each { |follower| follower.follow!(user)}
 
   end
+
+def make_appreciations
+  users = User.all
+  user = users.first
+  users[2].microposts.each {|post| user.like! post}
+  post = users[2].microposts[1]
+  users[2..10].each {|user|
+    user.like! post
+  }
+end

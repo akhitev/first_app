@@ -1,6 +1,4 @@
-<% micropost = @micropost if !@micropost.nil? %>
-<%= form_for current_user.appreciations.find_by_liked_id(micropost),
-                          :html => { :method => :delete }, :remote=> true do |f| %>
-  <div><%= f.hidden_field :liked_id %></div>
+<%= form_for current_user.appreciations.find_by_liked_id( micropost),:html => { :method => :delete }, :remote=> true do |f| %>
+  <div><%= f.hidden_field :liked_id ,:value => micropost.id %></div>
   <div class="actions"><%= f.submit "Unlike" %></div>
 <% end %>

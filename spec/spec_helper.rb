@@ -2,6 +2,14 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'capybara/rspec'
+
+ActiveRecord::ConnectionAdapters::ConnectionPool.class_eval do
+  def current_connection_id
+    # Thread.current.object_id
+    Thread.main.object_id
+  end
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

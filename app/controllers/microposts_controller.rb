@@ -18,6 +18,13 @@ class MicropostsController < ApplicationController
     redirect_back_or root_path
   end
 
+  def likes
+    @title = "Likes"
+    @post = Micropost.find(params[:id])
+    @users = @post.likers.paginate(:page => params[:page])
+#    render 'likes'
+  end
+
   private
 
   def authorized_user

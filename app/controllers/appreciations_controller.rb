@@ -5,7 +5,7 @@ class AppreciationsController < ApplicationController
     @micropost = Micropost.find_by_id(params[:appreciation][:liked_id])
     current_user.like!(@micropost)
     respond_to do |format|
-      format.html { redirect_to current_user }
+      format.html { redirect_to :back }
       format.js
     end
   end
@@ -14,7 +14,7 @@ class AppreciationsController < ApplicationController
     @micropost = Appreciation.find(params[:id]).liked
     current_user.unlike!(@micropost)
     respond_to do |format|
-      format.html { redirect_to current_user }
+      format.html { redirect_to :back }
       format.js
     end
   end

@@ -1,5 +1,4 @@
-<% micropost = @micropost if !@micropost.nil? %>
 <%= form_for current_user.appreciations.build(:liked_id => micropost.id), :remote=> true do |f| %>
-  <div><%= f.hidden_field :liked_id  %></div>
+  <div><%= f.hidden_field :liked_id ,:value => micropost.id %></div>
   <div class="actions"><%= f.submit "Like" %></div>
 <% end %>

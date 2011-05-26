@@ -6,6 +6,8 @@
         <%= render :partial =>'microposts/like', :locals => {:micropost => micropost} %>
     <% end %>
   </div>
-  <div class="likes"><%= micropost.likers.count %> likes</div>
+  <div class="likes"><a href="<%= likes_micropost_path(micropost) %>">
+    <%= micropost.likers.count %> likes
+  </a></div>
 </div>
 

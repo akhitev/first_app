@@ -214,6 +214,13 @@ table.microposts tr td.micropost {
   padding-top: 10px;
 }
 
+table.microposts tr td {
+  border-top: 1px solid #ccc;
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+
 table.microposts tr td.micropost span.timestamp {
   display: block;
   font-size: 85%;

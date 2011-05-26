@@ -2,6 +2,7 @@
   <td class="gravatar">
     <%= link_to gravatar_for(feed_item.user), feed_item.user %>
   </td>
+
   <td class="micropost">
     <span class="user">
       <%= link_to feed_item.user.name, feed_item.user %>
@@ -12,10 +13,14 @@
     </span>
   </td>
   <% if current_user?(feed_item.user) %>
-  <td>
-    <%= link_to "delete", feed_item, :method => :delete,
-                                     :confirm => "You sure?",
-                                     :title => feed_item.content %>
-  </td>
+      <td>
+        <%= link_to "delete", feed_item, :method => :delete,
+                    :confirm => "You sure?",
+                    :title => feed_item.content %>
+      </td>
+  <% else %>
+      <td>
+        <%= render :partial => 'microposts/like_form', :locals => {:micropost => feed_item} if signed_in? %>
+      </td>
   <% end %>
 </tr>

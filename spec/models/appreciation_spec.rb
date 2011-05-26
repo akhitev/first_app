@@ -36,7 +36,7 @@ describe Appreciation do
       @appreciation.liker.should == @liker
     end
 
-#   outer specs
+#   external specs
     it "user should repond to liked? " do
       @liker.liked?(@liked).should be true
     end

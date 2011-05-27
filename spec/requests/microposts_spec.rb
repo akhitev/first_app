@@ -1,12 +1,9 @@
 require 'spec_helper'
 
-describe "Microposts" do
+describe "Microposts" ,do
     before(:each) do
     user = Factory(:user)
-    visit signin_path
-    fill_in :email,    :with => user.email
-    fill_in :password, :with => user.password
-    click_button
+    integration_sign_in user
   end
 
   describe "creation" do
@@ -16,10 +13,8 @@ describe "Microposts" do
       it "should not make a new micropost" do
         lambda do
           visit root_path
-          fill_in :micropost_content, :with => ""
-          click_button
-          response.should render_template('pages/home')
-          response.should have_selector("div#error_explanation")
+          fill_in "micropost_content", :with => ""
+          click_button "micropost_submit"
         end.should_not change(Micropost, :count)
       end
     end
@@ -30,9 +25,9 @@ describe "Microposts" do
         content = "Lorem ipsum dolor sit amet"
         lambda do
           visit root_path
-          fill_in :micropost_content, :with => content
-          click_button
-          response.should have_selector("span.content", :content => content)
+          fill_in 'micropost_content', :with => content
+          click_button "micropost_submit"
+          page.should have_selector("span.content", :content => content)
         end.should change(Micropost, :count).by(1)
       end
     end

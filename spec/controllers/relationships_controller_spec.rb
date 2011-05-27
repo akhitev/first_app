@@ -6,12 +6,12 @@ describe RelationshipsController do
 
     it "should require signin for create" do
       post :create
-      response.should redirect_to(signin_path)
+      page.should redirect_to(signin_path)
     end
 
     it "should require signin for destroy" do
       delete :destroy, :id => 1
-      response.should redirect_to(signin_path)
+      page.should redirect_to(signin_path)
     end
   end
 
@@ -25,7 +25,7 @@ describe RelationshipsController do
     it "should create a relationships" do
       lambda do
         xhr :post, :create, :relationship => { :followed_id => @followed }
-        response.should be_success
+        page.should be_success
       end.should change(Relationship, :count).by(1)
     end
   end
@@ -42,7 +42,7 @@ describe RelationshipsController do
     it "should destroy a relationships" do
       lambda do
         xhr :delete, :destroy, :id => @relationship
-        response.should be_success
+        page.should be_success
       end.should change(Relationship, :count).by(-1)
     end
   end

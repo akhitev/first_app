@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 
+#hack for using transactional fixtures with Selenium
 ActiveRecord::ConnectionAdapters::ConnectionPool.class_eval do
   def current_connection_id
     # Thread.current.object_id
@@ -39,9 +40,10 @@ RSpec.configure do |config|
 
   def integration_sign_in(user)
     visit signin_path
-    fill_in :email, :with => user.email
-    fill_in :password, :with => user.password
-    click_button
+    puts user.email
+    fill_in 'session_email', :with => user.email
+    fill_in 'session_password', :with => user.password
+    click_button "Sign in"
   end
 
 end

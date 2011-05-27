@@ -1,4 +1,5 @@
 require 'spec_helper'
+require "webrat"
 
 describe UsersController do
   render_views
@@ -7,11 +8,11 @@ describe UsersController do
 
     it "should be successful" do
       get :new
-      page.should be_success
+      response.should be_success
     end
     it "should have the right title" do
       get :new
-      page.should have_selector("title", :content => "Sign up")
+      response.should have_selector("title", :content => "Sign up")
     end
   end
 
@@ -22,7 +23,7 @@ describe UsersController do
     end
     it "should be successful" do
       get :show, :id => @user
-      page.should be_success
+      response.should be_success
     end
 
     it "should find the right user" do
@@ -31,25 +32,25 @@ describe UsersController do
     end
     it "should have the right title" do
       get :show, :id => @user
-      page.should have_selector("title", :content => @user.name)
+      response.should have_selector("title", :content => @user.name)
     end
 
     it "should include the user's name" do
       get :show, :id => @user
-      page.should have_selector("h1", :content => @user.name)
+      response.should have_selector("h1", :content => @user.name)
     end
 
     it "should have a profile image" do
       get :show, :id => @user
-      page.should have_selector("h1>img", :class => "gravatar")
+      response.should have_selector("h1>img", :class => "gravatar")
     end
 
     it "should show the user's microposts" do
       mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
       mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
       get :show, :id => @user
-      page.should have_selector("span.content", :content => mp1.content)
-      page.should have_selector("span.content", :content => mp2.content)
+      response.should have_selector("span.content", :content => mp1.content)
+      response.should have_selector("span.content", :content => mp2.content)
     end
 
   end
@@ -69,12 +70,12 @@ describe UsersController do
 
       it "should have the right title" do
         post :create, :user => @attr
-        page.should have_selector("title", :content => "Sign up")
+        response.should have_selector("title", :content => "Sign up")
       end
 
       it "should render the 'new' page" do
         post :create, :user => @attr
-        page.should render_template('new')
+        response.should render_template('new')
       end
     end
 
@@ -92,7 +93,7 @@ describe UsersController do
 
       it "should redirect to user screen" do
         post :create, :user => @attr
-        page.should redirect_to(user_path(assigns(:user)))
+        response.should redirect_to(user_path(assigns(:user)))
       end
 
       it "should sign the user in" do
@@ -118,18 +119,18 @@ describe UsersController do
 
     it "should be successful" do
       get :edit, :id => @user
-      page.should be_success
+      response.should be_success
     end
 
     it "should have the right title" do
       get :edit, :id => @user
-      page.should have_selector("title", :content => "Edit user")
+      response.should have_selector("title", :content => "Edit user")
     end
 
     it "should have a link to change the Gravatar" do
       get :edit, :id => @user
       gravatar_url = "http://gravatar.com/emails"
-      page.should have_selector("a", :href => gravatar_url,
+      response.should have_selector("a", :href => gravatar_url,
                                     :content   => "change")
     end
   end
@@ -151,12 +152,12 @@ describe UsersController do
 
       it "should render the 'edit' page" do
         put :update, :id => @user, :user => @attr
-        page.should render_template('edit')
+        response.should render_template('edit')
       end
 
       it "should have the right title" do
         put :update, :id => @user, :user => @attr
-        page.should have_selector("title", :content => "Edit user")
+        response.should have_selector("title", :content => "Edit user")
       end
     end
 
@@ -176,7 +177,7 @@ describe UsersController do
 
       it "should redirect to the user show page" do
         put :update, :id => @user, :user => @attr
-        page.should redirect_to(user_path(@user))
+        response.should redirect_to(user_path(@user))
       end
 
       it "should have a flash message" do
@@ -196,12 +197,12 @@ describe UsersController do
 
       it "should deny access to 'edit'" do
         get :edit, :id => @user
-        page.should redirect_to(signin_path)
+        response.should redirect_to(signin_path)
       end
 
       it "should deny access to 'update'" do
         put :update, :id => @user, :user => {}
-        page.should redirect_to(signin_path)
+        response.should redirect_to(signin_path)
       end
     end
 
@@ -214,12 +215,12 @@ describe UsersController do
 
       it "should require matching users for 'edit'" do
         get :edit, :id => @user
-        page.should redirect_to(root_path)
+        response.should redirect_to(root_path)
       end
 
       it "should require matching users for 'update'" do
         put :update, :id => @user, :user => {}
-        page.should redirect_to(root_path)
+        response.should redirect_to(root_path)
       end
     end
   end
@@ -230,7 +231,7 @@ describe UsersController do
 
       it "should deny access to 'index" do
         get :index
-        page.should redirect_to(signin_path)
+        response.should redirect_to(signin_path)
         flash[:notice].should =~ /sign in/i
       end
     end
@@ -251,28 +252,28 @@ describe UsersController do
 
       it "should be successful" do
         get :index
-        page.should be_success
+        response.should be_success
       end
 
       it "should have the right title" do
         get :index
-        page.should have_selector("title", :content => "All users")
+        response.should have_selector("title", :content => "All users")
       end
 
       it "should have an element for each user" do
         get :index
         @users.each do |user|
-          page.should have_selector("li", :content => user.name)
+          response.should have_selector("li", :content => user.name)
         end
       end
 
       it "should paginate users" do
         get :index
-        page.should have_selector("div.pagination")
-        page.should have_selector("span.disabled", :content => "Previous")
-        page.should have_selector("a", :href => "/users?page=2",
+        response.should have_selector("div.pagination")
+        response.should have_selector("span.disabled", :content => "Previous")
+        response.should have_selector("a", :href => "/users?page=2",
                                       :content   => "2")
-        page.should have_selector("a", :href => "/users?page=2",
+        response.should have_selector("a", :href => "/users?page=2",
                                       :content   => "Next")
 
       end
@@ -289,14 +290,14 @@ describe UsersController do
     describe "for non signed users" do
       it "should deny access to 'destroy'" do
         delete :destroy, :id => @user
-        page.should redirect_to(signin_path)
+        response.should redirect_to(signin_path)
       end
     end
     describe "for non admin users" do
       it "should deny access to destroy" do
         test_sign_in(@user)
         delete :destroy, :id => @user
-        page.should redirect_to(root_path)
+        response.should redirect_to(root_path)
       end
 
       it "should not show delete links" do
@@ -314,7 +315,7 @@ describe UsersController do
 
       it "should not show delete links" do
         get :index
-        page.should have_selector("a", :content => "delete")
+        response.should have_selector("a", :content => "delete")
       end
 
       it "should destroy the user" do
@@ -325,7 +326,7 @@ describe UsersController do
 
       it "should redirect to the users page" do
         delete :destroy, :id => @user
-        page.should redirect_to(users_path)
+        response.should redirect_to(users_path)
       end
     end
   end
@@ -336,12 +337,12 @@ describe UsersController do
 
       it "should protect 'following'" do
         get :following, :id => 1
-        page.should redirect_to(signin_path)
+        response.should redirect_to(signin_path)
       end
 
       it "should protect 'followers'" do
         get :followers, :id => 1
-        page.should redirect_to(signin_path)
+        response.should redirect_to(signin_path)
       end
     end
 
@@ -355,13 +356,13 @@ describe UsersController do
 
       it "should show user following" do
         get :following, :id => @user
-        page.should have_selector("a", :href => user_path(@other_user),
+        response.should have_selector("a", :href => user_path(@other_user),
                                            :content => @other_user.name)
       end
 
       it "should show user followers" do
         get :followers, :id => @other_user
-        page.should have_selector("a", :href => user_path(@user),
+        response.should have_selector("a", :href => user_path(@user),
                                            :content => @user.name)
       end
     end

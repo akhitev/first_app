@@ -7,12 +7,12 @@ describe MicropostsController do
 
     it "should deny access to 'create'" do
       post :create
-      page.should redirect_to(signin_path)
+      response.should redirect_to(signin_path)
     end
 
     it "should deny access to 'destroy'" do
       delete :destroy, :id => 1
-      page.should redirect_to(signin_path)
+      response.should redirect_to(signin_path)
     end
   end
 
@@ -36,7 +36,7 @@ describe MicropostsController do
 
       it "should render the home page" do
         post :create, :micropost => @attr
-        page.should render_template('pages/home')
+        response.should render_template('pages/home')
       end
     end
 
@@ -54,7 +54,7 @@ describe MicropostsController do
 
       it "should redirect to the home page" do
         post :create, :micropost => @attr
-        page.should redirect_to(root_path)
+        response.should redirect_to(root_path)
       end
 
       it "should have a flash message" do
@@ -77,7 +77,7 @@ describe MicropostsController do
 
       it "should deny access" do
         delete :destroy, :id => @micropost
-        page.should redirect_to(root_path)
+        response.should redirect_to(root_path)
       end
     end
 

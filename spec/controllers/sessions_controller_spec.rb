@@ -7,12 +7,12 @@ describe SessionsController do
   describe "GET 'new'" do
     it "should be successful" do
       get :new
-      page.should be_success
+      response.should be_success
     end
 
     it "should have the right title" do
       get :new
-      page.should have_selector("title", :content => "Sign in")
+      response.should have_selector("title", :content => "Sign in")
     end
   end
 
@@ -27,12 +27,12 @@ describe SessionsController do
 
       it "should render new page" do
         post :create, :session => @attr
-        page.should render_template(:new)
+        response.should render_template(:new)
       end
 
       it "should have the right title" do
         post :create, :session => @attr
-        page.should have_selector("title", :content => "Sign in")
+        response.should have_selector("title", :content => "Sign in")
       end
 
       it "should have a flash.now message" do
@@ -58,7 +58,7 @@ describe SessionsController do
 
       it "should redirect to the user show page" do
         post :create, :session => @attr
-        page.should redirect_to(user_path(@user))
+        response.should redirect_to(user_path(@user))
       end
     end
 
@@ -70,7 +70,7 @@ describe SessionsController do
 #      test_sign_in(Factory(:user),controller)
 #      delete :destroy
 #      controller.should_not signed_in?
-#      page.should redirect_to(root_path)
+#      response.should redirect_to(root_path)
 #    end
 #  end
 

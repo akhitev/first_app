@@ -23,6 +23,7 @@ end
 # and rake tasks are available in development mode:
  group :test do
    gem 'rspec', '2.0.0.rc'
+   gem 'webrat'
    gem 'capybara'
    gem 'launchy'
    gem 'factory_girl_rails'

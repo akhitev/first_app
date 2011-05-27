@@ -12,7 +12,7 @@ describe "UsersIntegration" do
           fill_in "Password", :with => ""
           fill_in "Confirmation", :with => ""
           click_button "Sign up"
-          page.should have_selector("h1", :text =>'Sign up')
+          page.should have_selector("h1", :content =>'Sign up')
           page.should have_selector("div#error_explanation")
         end.should_not change(User, :count)
       end

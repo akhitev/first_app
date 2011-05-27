@@ -7,12 +7,12 @@ describe AppreciationsController do
 
     it "should deny access to 'create'" do
       post :create
-      page.should redirect_to(signin_path)
+      response.should redirect_to(signin_path)
     end
 
     it "should deny access to 'destroy'" do
       delete :destroy, :id => 1
-      page.should redirect_to(signin_path)
+      response.should redirect_to(signin_path)
     end
   end
   describe "POST 'create'" do
@@ -26,7 +26,7 @@ describe AppreciationsController do
     it "should create a appreciation " do
       lambda do
         xhr :post, :create, :appreciation => { :liked_id => @liked}
-        page.should be_success
+        response.should be_success
       end.should change(Appreciation, :count).by(1)
     end
   end
